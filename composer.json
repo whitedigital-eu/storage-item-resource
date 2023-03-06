@@ -1,0 +1,59 @@
+{
+    "name": "whitedigital-eu/storage-item-resource",
+    "description": "Storage Item resource",
+    "type": "symfony-bundle",
+    "keywords": [
+        "api-platform",
+        "php",
+        "storage",
+        "symfony",
+        "symfony-bundle"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=8.1.0",
+        "api-platform/core": "^3",
+        "doctrine/annotations": "*",
+        "doctrine/orm": "*",
+        "doctrine/persistence": "*",
+        "symfony/config": "^6.2",
+        "symfony/framework-bundle": "^6.2",
+        "symfony/http-foundation": "^6.2",
+        "symfony/http-kernel": "^6.2",
+        "symfony/property-info": "^6.2",
+        "symfony/security-core": "^6.2",
+        "symfony/serializer": "^6.2",
+        "symfony/translation": "^6.2",
+        "symfony/validator": "^6.2",
+        "vich/uploader-bundle": "*",
+        "whitedigital-eu/entity-resource-mapper-bundle": "^0.24"
+    },
+    "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "*",
+        "friendsofphp/php-cs-fixer": "*",
+        "roave/security-advisories": "dev-latest",
+        "symfony/dependency-injection": "^6.2",
+        "symfony/http-client": "^6.2",
+        "whitedigital-eu/config-pack": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "WhiteDigital\\StorageItemResource\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WhiteDigital\\StorageItemResource\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "0.x-dev"
+        }
+    }
+}

@@ -1,0 +1,5 @@
+named_resource_not_found: 'Resurss %resource%:%id% nav atrasts'
+resource_not_found: 'Resurss nav atrasts'
+unable_to_delete_record: 'Šo ierakstu nav iespējams dzēst, jo tas tiek izmantots citur (%detail%)'
+named_required_parameter_is_missing: 'Trūkst obligātais parametrs "%parameter%"'
+named_required_parameter_is_incorrect: 'Nekorekta "%parameter%" vērtība'
