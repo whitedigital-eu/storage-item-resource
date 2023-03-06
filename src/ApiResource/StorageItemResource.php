@@ -15,12 +15,12 @@ use Symfony\Component\PropertyInfo\Type;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use WhiteDigital\EntityResourceMapper\Attribute\Mapping;
+use WhiteDigital\EntityResourceMapper\Resource\BaseResource;
 use WhiteDigital\StorageItemResource\Controller\CreateStorageObjectController;
 use WhiteDigital\StorageItemResource\DataProcessor\StorageItemDataProcessor;
 use WhiteDigital\StorageItemResource\DataProvider\StorageItemDataProvider;
 use WhiteDigital\StorageItemResource\Entity\StorageItem;
-use WhiteDigital\EntityResourceMapper\Attribute\Mapping;
-use WhiteDigital\EntityResourceMapper\Resource\BaseResource;
 
 #[
     ApiResource(

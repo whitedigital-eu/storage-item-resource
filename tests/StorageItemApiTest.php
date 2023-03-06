@@ -5,6 +5,7 @@ namespace WhiteDigital\StorageItemResource\Tests;
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
 use PHPUnit\Framework\Attributes\Depends;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
@@ -13,7 +14,7 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 use function sprintf;
 
 class StorageItemApiTest extends ApiTestCase

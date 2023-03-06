@@ -9,10 +9,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use WhiteDigital\StorageItemResource\Entity\StorageItem;
 use WhiteDigital\EntityResourceMapper\Entity\BaseEntity;
 use WhiteDigital\EntityResourceMapper\Resource\BaseResource;
 use WhiteDigital\EntityResourceMapper\Security\AuthorizationService;
+use WhiteDigital\StorageItemResource\Entity\StorageItem;
 
 use function preg_match;
 

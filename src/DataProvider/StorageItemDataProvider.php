@@ -8,9 +8,9 @@ use ApiPlatform\Metadata\Operation;
 use ReflectionException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
-use WhiteDigital\StorageItemResource\ApiResource\StorageItemResource;
 use WhiteDigital\EntityResourceMapper\DataProvider\AbstractDataProvider;
 use WhiteDigital\EntityResourceMapper\Entity\BaseEntity;
+use WhiteDigital\StorageItemResource\ApiResource\StorageItemResource;
 
 final class StorageItemDataProvider extends AbstractDataProvider
 {

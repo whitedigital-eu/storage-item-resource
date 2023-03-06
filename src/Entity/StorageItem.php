@@ -5,10 +5,10 @@ namespace WhiteDigital\StorageItemResource\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use WhiteDigital\StorageItemResource\ApiResource\StorageItemResource;
 use WhiteDigital\EntityResourceMapper\Attribute\Mapping;
 use WhiteDigital\EntityResourceMapper\Entity\BaseEntity;
 use WhiteDigital\EntityResourceMapper\Entity\Traits\Id;
+use WhiteDigital\StorageItemResource\ApiResource\StorageItemResource;
 
 #[ORM\Entity]
 #[Vich\Uploadable]

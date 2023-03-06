@@ -48,18 +48,19 @@ class StorageItemResourceBundle extends AbstractBundle
     public function prependExtension(ContainerConfigurator $container, ContainerBuilder $builder): void
     {
         $apiResource = array_merge_recursive(...$builder->getExtensionConfig('api_resource'));
-        $audit = array_merge_recursive(...$builder->getExtensionConfig('whitedigital'))['audit'] ?? [];
+        $audit = array_merge_recursive(...$builder->getExtensionConfig('audit'));
 
         $mappings = $this->getOrmMappings($builder, $apiResource['entity_manager'] ?? 'default');
 
         $this->addDoctrineConfig($container, $apiResource['entity_manager'] ?? 'default', $mappings, 'StorageItemResource', self::MAPPINGS);
         $this->addApiPlatformPaths($container, self::PATHS);
 
-        if (true === ($audit['enabled'] ?? false)) {
+        if (null !== ($audit['audit_entity_manager'] ?? null)) {
             $this->addDoctrineConfig($container, $audit['audit_entity_manager'], $mappings, 'StorageItemResource', self::MAPPINGS);
         }
 
         $container->extension('vich_uploader', [
+            'db_driver' => 'orm',
             'mappings' => [
                 'wd_sir_media_object' => [
                     'uri_prefix' => '/storage',
