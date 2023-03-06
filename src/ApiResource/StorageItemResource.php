@@ -103,7 +103,7 @@ class StorageItemResource extends BaseResource
     #[Groups([self::ITEM, ])]
     public ?array $dimensions = null;
 
-    #[Groups([self::ITEM, ])]
+    #[Groups([self::ITEM, self::WRITE, ])]
     public ?string $title = null;
 
     #[Groups([self::ITEM, ])]

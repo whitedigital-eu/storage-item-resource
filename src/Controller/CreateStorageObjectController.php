@@ -45,7 +45,7 @@ class CreateStorageObjectController extends AbstractController
             throw new BadRequestHttpException($translator->trans($uploadedFile->getErrorMessage()));
         }
 
-        $storage = (new StorageItem())->setFile($uploadedFile);
+        $storage = (new StorageItem())->setFile($uploadedFile)->setTitle($request->request->get('title'));
 
         $this->authorizationService->setAuthorizationOverride(fn () => $this->override(AuthorizationService::COL_POST, StorageItemResource::class));
         $this->authorizationService->authorizeSingleObject($storage, AuthorizationService::COL_POST);
