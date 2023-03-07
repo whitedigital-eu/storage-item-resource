@@ -26,7 +26,7 @@
         "symfony/translation": "^6.2",
         "symfony/validator": "^6.2",
         "vich/uploader-bundle": "*",
-        "whitedigital-eu/entity-resource-mapper-bundle": ">=0.23.3"
+        "whitedigital-eu/entity-resource-mapper-bundle": "^0.23"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "*",
@@ -35,6 +35,9 @@
         "symfony/dependency-injection": "^6.2",
         "symfony/http-client": "^6.2",
         "whitedigital-eu/config-pack": "^2.1"
+    },
+    "conflict": {
+        "whitedigital-eu/entity-resource-mapper-bundle": "<0.23.3"
     },
     "autoload": {
         "psr-4": {
