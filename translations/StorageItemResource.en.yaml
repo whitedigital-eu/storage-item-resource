@@ -1,4 +1,3 @@
-named_resource_not_found: 'Resource %resource%:%id% not found'
 resource_not_found: 'Resource not found'
 unable_to_delete_record: 'Unable to delete this record, it has been used elsewhere (%detail%)'
 named_required_parameter_is_missing: 'Required parameter "%parameter%" is missing'
