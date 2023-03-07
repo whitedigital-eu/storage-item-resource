@@ -17,6 +17,8 @@ class StorageItemResourceBundle extends AbstractBundle
     use DefineApiPlatformMappings;
     use DefineOrmMappings;
 
+    public const VICH_MAPPING = 'wd_storage_item_media_object';
+
     private const MAPPINGS = [
         'type' => 'attribute',
         'dir' => __DIR__ . '/Entity',
@@ -62,7 +64,7 @@ class StorageItemResourceBundle extends AbstractBundle
         $container->extension('vich_uploader', [
             'db_driver' => 'orm',
             'mappings' => [
-                'wd_sir_media_object' => [
+                self::VICH_MAPPING => [
                     'uri_prefix' => '/storage',
                     'upload_destination' => '%kernel.project_dir%/public/storage',
                     'inject_on_load' => false,

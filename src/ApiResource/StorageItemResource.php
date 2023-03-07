@@ -21,6 +21,7 @@ use WhiteDigital\StorageItemResource\Controller\CreateStorageObjectController;
 use WhiteDigital\StorageItemResource\DataProcessor\StorageItemDataProcessor;
 use WhiteDigital\StorageItemResource\DataProvider\StorageItemDataProvider;
 use WhiteDigital\StorageItemResource\Entity\StorageItem;
+use WhiteDigital\StorageItemResource\StorageItemResourceBundle;
 
 #[
     ApiResource(
@@ -79,7 +80,7 @@ class StorageItemResource extends BaseResource
     #[Assert\NotNull(groups: [self::WRITE, ])]
     #[Assert\File(groups: [self::WRITE, ])]
     #[Vich\UploadableField(
-        mapping: 'wd_sir_media_object',
+        mapping: StorageItemResourceBundle::VICH_MAPPING,
         fileNameProperty: 'filePath',
         size: 'size',
         mimeType: 'mimeType',

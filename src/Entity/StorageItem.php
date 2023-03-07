@@ -9,6 +9,7 @@ use WhiteDigital\EntityResourceMapper\Attribute\Mapping;
 use WhiteDigital\EntityResourceMapper\Entity\BaseEntity;
 use WhiteDigital\EntityResourceMapper\Entity\Traits\Id;
 use WhiteDigital\StorageItemResource\ApiResource\StorageItemResource;
+use WhiteDigital\StorageItemResource\StorageItemResourceBundle;
 
 #[ORM\Entity]
 #[Vich\Uploadable]
@@ -36,7 +37,7 @@ class StorageItem extends BaseEntity
     private ?string $title = null;
 
     #[Vich\UploadableField(
-        mapping: 'wd_sir_media_object',
+        mapping: StorageItemResourceBundle::VICH_MAPPING,
         fileNameProperty: 'filePath',
         size: 'size',
         mimeType: 'mimeType',

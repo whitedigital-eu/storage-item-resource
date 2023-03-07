@@ -13,7 +13,7 @@ final class StorageNormalizer implements NormalizerInterface, NormalizerAwareInt
 {
     use NormalizerAwareTrait;
 
-    private const ALREADY_CALLED = 'WD_SIR_STORAGE_NORMALIZER_ALREADY_CALLED';
+    private const ALREADY_CALLED = 'WD_STORAGE_ITEM_NORMALIZER_ALREADY_CALLED';
 
     public function __construct(private readonly StorageInterface $storage)
     {
