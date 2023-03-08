@@ -23,7 +23,12 @@ final class StorageItemDataProvider extends AbstractDataProvider
             throw new NotFoundHttpException($this->translator->trans('resource_not_found', domain: 'StorageItemResource'));
         }
 
-        return $this->getItem($operation, $uriVariables['id'], $context);
+        $resource = $this->getItem($operation, $uriVariables['id'], $context);
+        if (null === $resource->title) {
+            $resource->title = $resource->originalName;
+        }
+
+        return $resource;
     }
 
     /**
