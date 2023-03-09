@@ -52,13 +52,11 @@ class StorageItemResourceBundle extends AbstractBundle
         $apiResource = array_merge_recursive(...$builder->getExtensionConfig('api_resource'));
         $audit = array_merge_recursive(...$builder->getExtensionConfig('audit'));
 
-        $mappings = $this->getOrmMappings($builder, $apiResource['entity_manager'] ?? 'default');
-
-        $this->addDoctrineConfig($container, $apiResource['entity_manager'] ?? 'default', $mappings, 'StorageItemResource', self::MAPPINGS);
+        $this->addDoctrineConfig($container, $apiResource['entity_manager'] ?? 'default', 'StorageItemResource', self::MAPPINGS);
         $this->addApiPlatformPaths($container, self::PATHS);
 
         if (null !== ($audit['audit_entity_manager'] ?? null)) {
-            $this->addDoctrineConfig($container, $audit['audit_entity_manager'], $mappings, 'StorageItemResource', self::MAPPINGS);
+            $this->addDoctrineConfig($container, $audit['audit_entity_manager'], 'StorageItemResource', self::MAPPINGS);
         }
 
         $container->extension('vich_uploader', [

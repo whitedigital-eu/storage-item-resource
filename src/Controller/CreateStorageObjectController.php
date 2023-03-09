@@ -25,24 +25,28 @@ use function array_merge;
 #[AsController]
 class CreateStorageObjectController extends AbstractController
 {
-    public function __construct(private readonly AuthorizationService $authorizationService)
-    {
+    public function __construct(
+        protected readonly AuthorizationService $authorizationService,
+        protected readonly EntityManagerInterface $em,
+        protected readonly StorageInterface $vichStorage,
+        protected readonly TranslatorInterface $translator,
+    ) {
     }
 
-    public function __invoke(Request $request, EntityManagerInterface $em, StorageInterface $vichStorage, TranslatorInterface $translator): StorageItemResource
+    public function __invoke(Request $request): StorageItemResource
     {
         if (!$request->files->has($key = 'file')) {
-            throw new BadRequestHttpException($translator->trans('named_required_parameter_is_missing', ['%parameter%' => 'file'], domain: 'StorageItemResource'));
+            throw new BadRequestHttpException($this->translator->trans('named_required_parameter_is_missing', ['%parameter%' => 'file'], domain: 'StorageItemResource'));
         }
 
         $uploadedFile = $request->files->get($key);
 
         if (!$uploadedFile instanceof UploadedFile) {
-            throw new BadRequestHttpException($translator->trans('named_required_parameter_is_incorrect', ['%parameter%' => 'file'], domain: 'StorageItemResource'));
+            throw new BadRequestHttpException($this->translator->trans('named_required_parameter_is_incorrect', ['%parameter%' => 'file'], domain: 'StorageItemResource'));
         }
 
         if ($uploadedFile->getError()) {
-            throw new BadRequestHttpException($translator->trans($uploadedFile->getErrorMessage()));
+            throw new BadRequestHttpException($this->translator->trans($uploadedFile->getErrorMessage()));
         }
 
         $storage = (new StorageItem())->setFile($uploadedFile)->setTitle($request->request->get('title'));
@@ -50,11 +54,11 @@ class CreateStorageObjectController extends AbstractController
         $this->authorizationService->setAuthorizationOverride(fn () => $this->override(AuthorizationService::COL_POST, StorageItemResource::class));
         $this->authorizationService->authorizeSingleObject($storage, AuthorizationService::COL_POST);
 
-        $em->persist($storage);
-        $em->flush();
+        $this->em->persist($storage);
+        $this->em->flush();
 
         $mediaObject = new StorageItemResource();
-        $mediaObject->contentUrl = $vichStorage->resolveUri($storage, 'file');
+        $mediaObject->contentUrl = $this->vichStorage->resolveUri($storage, 'file');
         $mediaObject->createdAt = $storage->getCreatedAt();
         $mediaObject->dimensions = $storage->getDimensions();
         $mediaObject->file = $storage->getFile();
