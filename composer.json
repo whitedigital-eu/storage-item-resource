@@ -38,7 +38,7 @@
         "whitedigital-eu/config-pack": "^2.1"
     },
     "conflict": {
-        "whitedigital-eu/entity-resource-mapper-bundle": "<0.23.3"
+        "whitedigital-eu/entity-resource-mapper-bundle": "<0.23.5"
     },
     "autoload": {
         "psr-4": {
