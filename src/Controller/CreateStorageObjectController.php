@@ -21,6 +21,7 @@ use WhiteDigital\StorageItemResource\Entity\StorageItem;
 
 use function array_key_exists;
 use function array_merge;
+use function exif_imagetype;
 
 #[AsController]
 class CreateStorageObjectController extends AbstractController
@@ -55,6 +56,8 @@ class CreateStorageObjectController extends AbstractController
         $this->authorizationService->authorizeSingleObject($storage, AuthorizationService::COL_POST);
 
         $this->em->persist($storage);
+        $storage->setIsImage(false !== exif_imagetype($this->vichStorage->resolvePath($storage, 'file')));
+        $this->em->persist($storage);
         $this->em->flush();
 
         $mediaObject = new StorageItemResource();
@@ -68,6 +71,7 @@ class CreateStorageObjectController extends AbstractController
         $mediaObject->originalName = $storage->getOriginalName();
         $mediaObject->size = $storage->getSize();
         $mediaObject->title = $storage->getTitle();
+        $mediaObject->isImage = $storage->getIsImage();
 
         return $mediaObject;
     }

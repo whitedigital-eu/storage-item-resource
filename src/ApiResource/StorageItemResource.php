@@ -112,4 +112,7 @@ class StorageItemResource extends BaseResource
 
     #[Groups([self::ITEM, ])]
     public ?DateTimeImmutable $updatedAt = null;
+
+    #[Groups([self::ITEM, ])]
+    public ?bool $isImage = null;
 }

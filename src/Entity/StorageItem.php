@@ -18,7 +18,7 @@ class StorageItem extends BaseEntity
 {
     use Id;
 
-    #[ORM\Column(nullable: false)]
+    #[ORM\Column]
     private ?string $filePath = null;
 
     #[ORM\Column(nullable: true)]
@@ -45,6 +45,9 @@ class StorageItem extends BaseEntity
         dimensions: 'dimensions',
     )]
     private ?File $file = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $isImage = null;
 
     public function getFilePath(): ?string
     {
@@ -126,6 +129,18 @@ class StorageItem extends BaseEntity
     public function setTitle(?string $title): static
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getIsImage(): ?bool
+    {
+        return $this->isImage;
+    }
+
+    public function setIsImage(?bool $isImage): static
+    {
+        $this->isImage = $isImage;
 
         return $this;
     }
