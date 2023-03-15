@@ -12,7 +12,7 @@ composer require whitedigital-eu/storage-item-resource
 ```
 
 With the help of `vich/uploader-bundle` this package enables file upload when used with api platform.
-After this, you need to update your database schema to use Audit entity.  
+After this, you need to update your database schema to use StorageItem entity.  
 If using migrations:
 ```shell
 bin/console doctrine:migrations:diff
