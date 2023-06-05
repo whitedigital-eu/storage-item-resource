@@ -44,6 +44,8 @@ class StorageItemResourceBundle extends AbstractBundle
             ->addDefaultsIfNotSet()
                 ->children()
                     ->scalarNode('entity_manager')->defaultValue('default')->end()
+                    ->scalarNode('uri_prefix')->defaultValue('/storage')->end()
+                    ->scalarNode('upload_destination')->defaultValue('%kernel.project_dir%/public/storage')->end()
                 ->end();
     }
 
@@ -63,8 +65,8 @@ class StorageItemResourceBundle extends AbstractBundle
             'db_driver' => 'orm',
             'mappings' => [
                 self::VICH_MAPPING => [
-                    'uri_prefix' => '/storage',
-                    'upload_destination' => '%kernel.project_dir%/public/storage',
+                    'uri_prefix' => $apiResource['uri_prefix'] ?? '/storage',
+                    'upload_destination' => $apiResource['upload_destination'] ?? '%kernel.project_dir%/public/storage',
                     'inject_on_load' => false,
                     'namer' => SmartUniqueNamer::class,
                 ],
