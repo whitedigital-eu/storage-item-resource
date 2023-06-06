@@ -14,12 +14,22 @@ class StorageItemFixture extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $templateFileName = __DIR__ . '/assets/storage_item-fixture.template.txt';
-        for ($i = 0; $i < 3; $i++) {
-            $fileName = __DIR__ . '/assets/storage_iten-' . $i . '.txt';
+        $data = [
+            'text' => [
+                'ext' => '.txt',
+                'mime' => 'text/plain',
+            ],
+            'image' => [
+                'ext' => '.png',
+                'mime' => 'image/png',
+            ],
+        ];
+        foreach ($data as $type => $item) {
+            $templateFileName = __DIR__ . '/assets/storage_item-fixture.template' . $item['ext'];
+            $fileName = __DIR__ . '/assets/storage_item-' . $type . $item['ext'];
 
             copy($templateFileName, $fileName);
-            $file = new UploadedFile($fileName, 'storage_item-' . $i . '.txt', 'text/plain', test: true);
+            $file = new UploadedFile($fileName, 'storage_item-' . $type . $item['ext'], $item['mime'], test: true);
 
             $fixture = (new StorageItem())->setFile($file);
             $fixture->setTitle(uniqid());
@@ -27,7 +37,7 @@ class StorageItemFixture extends Fixture
             $manager->persist($fixture);
             $manager->flush();
 
-            $this->addReference('wdFile' . $i, $fixture);
+            $this->addReference('wdFile_' . $type, $fixture);
         }
     }
 }
