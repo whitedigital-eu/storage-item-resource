@@ -6,6 +6,7 @@ use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model;
 use ArrayObject;
@@ -26,10 +27,10 @@ use WhiteDigital\StorageItemResource\StorageItemResourceBundle;
 #[
     ApiResource(
         shortName: 'StorageItem',
-        types: ['https://schema.org/MediaObject', ],
         operations: [
             new Post(
                 controller: CreateStorageObjectController::class,
+                types: ['https://schema.org/MediaObject', ],
                 openapi: new Model\Operation(
                     requestBody: new Model\RequestBody(
                         content: new ArrayObject([
@@ -50,14 +51,21 @@ use WhiteDigital\StorageItemResource\StorageItemResourceBundle;
                 validationContext: ['groups' => ['Default', self::WRITE, ], ],
                 deserialize: false,
             ),
+            new Patch(
+                requirements: ['id' => '\d+', ],
+                denormalizationContext: ['groups' => [self::PATCH, ], ],
+                processor: StorageItemDataProcessor::class,
+            ),
             new Get(
                 normalizationContext: ['groups' => [self::ITEM, ], ],
             ),
-            new Delete(),
+            new Delete(
+                processor: StorageItemDataProcessor::class,
+            ),
         ],
         normalizationContext: ['groups' => [self::ITEM, ], ],
+        denormalizationContext: ['groups' => [self::WRITE, ], ],
         provider: StorageItemDataProvider::class,
-        processor: StorageItemDataProcessor::class,
     )
 ]
 #[Vich\Uploadable]
@@ -65,6 +73,7 @@ use WhiteDigital\StorageItemResource\StorageItemResourceBundle;
 class StorageItemResource extends BaseResource
 {
     public const ITEM = self::PREFIX . 'item';
+    public const PATCH = self::PREFIX . 'patch';
     public const WRITE = self::PREFIX . 'write';
 
     public const PREFIX = 'storage_item:';
@@ -104,7 +113,7 @@ class StorageItemResource extends BaseResource
     #[Groups([self::ITEM, ])]
     public ?array $dimensions = null;
 
-    #[Groups([self::ITEM, self::WRITE, ])]
+    #[Groups([self::ITEM, self::WRITE, self::PATCH, ])]
     public ?string $title = null;
 
     #[Groups([self::ITEM, ])]

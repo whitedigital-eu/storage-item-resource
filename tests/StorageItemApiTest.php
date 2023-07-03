@@ -51,8 +51,8 @@ class StorageItemApiTest extends ApiTestCase
      */
     public function testPostItem(): int
     {
-        $templateFileName = dirname(__DIR__, 2) . '/src/DataFixture/assets/storage_item-fixture.template.txt';
-        $fileName = dirname(__DIR__, 2) . '/src/DataFixture/assets/uploaded-storage_item-fixture.txt';
+        $templateFileName = dirname(__DIR__) . '/src/DataFixture/assets/storage_item-fixture.template.txt';
+        $fileName = dirname(__DIR__) . '/src/DataFixture/assets/uploaded-storage_item-fixture.txt';
         copy($templateFileName, $fileName);
 
         $response = $this->client->request(Request::METHOD_POST, $this->iri, [

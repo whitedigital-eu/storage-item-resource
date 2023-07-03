@@ -2,54 +2,34 @@
 
 namespace WhiteDigital\StorageItemResource\DataProcessor;
 
-use ApiPlatform\Metadata\DeleteOperationInterface;
-use ApiPlatform\Metadata\Operation;
-use ApiPlatform\State\ProcessorInterface;
-use Doctrine\ORM\EntityManagerInterface;
-use Exception;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use ApiPlatform\Exception\ResourceClassNotFoundException;
+use ReflectionException;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
+use WhiteDigital\EntityResourceMapper\DataProcessor\AbstractDataProcessor;
 use WhiteDigital\EntityResourceMapper\Entity\BaseEntity;
 use WhiteDigital\EntityResourceMapper\Resource\BaseResource;
-use WhiteDigital\EntityResourceMapper\Security\AuthorizationService;
+use WhiteDigital\StorageItemResource\ApiResource\StorageItemResource;
 use WhiteDigital\StorageItemResource\Entity\StorageItem;
 
-use function preg_match;
-
-final class StorageItemDataProcessor implements ProcessorInterface
+final class StorageItemDataProcessor extends AbstractDataProcessor
 {
-    public function __construct(
-        protected readonly AuthorizationService $authorizationService,
-        protected readonly EntityManagerInterface $entityManager,
-        protected readonly TranslatorInterface $translator,
-    ) {
+    public function getEntityClass(): string
+    {
+        return StorageItem::class;
     }
 
-    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): void
+    protected function createEntity(BaseResource $resource, array $context, ?BaseEntity $existingEntity = null): StorageItem
     {
-        if ($operation instanceof DeleteOperationInterface) {
-            $this->remove($data);
-        }
+        return StorageItem::create($resource, $context, $existingEntity);
     }
 
-    protected function remove(BaseResource $resource): void
+    /**
+     * @throws ExceptionInterface
+     * @throws ReflectionException
+     * @throws ResourceClassNotFoundException
+     */
+    protected function createResource(BaseEntity $entity, array $context): StorageItemResource
     {
-        $this->authorizationService->authorizeSingleObject($resource, AuthorizationService::ITEM_DELETE);
-        $entity = $this->entityManager->getRepository(StorageItem::class)->find($resource->id);
-        if (null !== $entity) {
-            $this->removeWithFkCheck($entity);
-        }
-    }
-
-    protected function removeWithFkCheck(BaseEntity $entity): void
-    {
-        $this->entityManager->remove($entity);
-
-        try {
-            $this->entityManager->flush();
-        } catch (Exception $exception) {
-            preg_match('/DETAIL: (.*)/', $exception->getMessage(), $matches);
-            throw new AccessDeniedHttpException($this->translator->trans('unable_to_delete_record', ['%detail%' => $matches[1]], domain: 'StorageItemResource'), $exception);
-        }
+        return StorageItemResource::create($entity, $context);
     }
 }
