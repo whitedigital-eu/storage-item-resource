@@ -16,6 +16,7 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 use function sprintf;
+use function uniqid;
 
 class StorageItemApiTest extends ApiTestCase
 {
@@ -62,6 +63,10 @@ class StorageItemApiTest extends ApiTestCase
             'extra' => [
                 'files' => [
                     'file' => new UploadedFile($fileName, 'uploaded-storage_item-fixture.txt', 'text/plain'),
+                ],
+                'parameters' => [
+                    'title' => uniqid(),
+                    'altText' => uniqid(),
                 ],
             ],
         ]);

@@ -32,7 +32,8 @@ class StorageItemFixture extends Fixture
             $file = new UploadedFile($fileName, 'storage_item-' . $type . $item['ext'], $item['mime'], test: true);
 
             $fixture = (new StorageItem())->setFile($file);
-            $fixture->setTitle(uniqid());
+            $fixture->setTitle(uniqid())
+                ->setAltText(uniqid());
 
             $manager->persist($fixture);
             $manager->flush();

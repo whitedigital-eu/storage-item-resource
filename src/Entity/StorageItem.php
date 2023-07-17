@@ -49,6 +49,9 @@ class StorageItem extends BaseEntity
     #[ORM\Column(nullable: true)]
     private ?bool $isImage = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?string $altText = null;
+
     public function getFilePath(): ?string
     {
         return $this->filePath;
@@ -141,6 +144,18 @@ class StorageItem extends BaseEntity
     public function setIsImage(?bool $isImage): static
     {
         $this->isImage = $isImage;
+
+        return $this;
+    }
+
+    public function getAltText(): ?string
+    {
+        return $this->altText;
+    }
+
+    public function setAltText(?string $altText): self
+    {
+        $this->altText = $altText;
 
         return $this;
     }
