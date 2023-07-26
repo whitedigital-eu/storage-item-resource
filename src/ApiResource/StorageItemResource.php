@@ -57,13 +57,13 @@ use WhiteDigital\StorageItemResource\StorageItemResourceBundle;
                 processor: StorageItemDataProcessor::class,
             ),
             new Get(
-                normalizationContext: ['groups' => [self::ITEM, ], ],
+                normalizationContext: ['groups' => [self::ITEM, self::READ, ], ],
             ),
             new Delete(
                 processor: StorageItemDataProcessor::class,
             ),
         ],
-        normalizationContext: ['groups' => [self::ITEM, ], ],
+        normalizationContext: ['groups' => [self::ITEM, self::READ, ], ],
         denormalizationContext: ['groups' => [self::WRITE, ], ],
         provider: StorageItemDataProvider::class,
     )
@@ -73,17 +73,18 @@ use WhiteDigital\StorageItemResource\StorageItemResourceBundle;
 class StorageItemResource extends BaseResource
 {
     public const ITEM = self::PREFIX . 'item';
+    public const READ = self::PREFIX . 'read';
     public const PATCH = self::PREFIX . 'patch';
     public const WRITE = self::PREFIX . 'write';
 
     public const PREFIX = 'storage_item:';
 
     #[ApiProperty(identifier: true)]
-    #[Groups([self::ITEM, ])]
+    #[Groups([self::ITEM, self::READ, ])]
     public mixed $id = null;
 
     #[ApiProperty(types: ['https://schema.org/contentUrl', ])]
-    #[Groups([self::ITEM, ])]
+    #[Groups([self::ITEM, self::READ, ])]
     public ?string $contentUrl = null;
 
     #[Assert\NotNull(groups: [self::WRITE, ])]
@@ -98,33 +99,33 @@ class StorageItemResource extends BaseResource
     )]
     public ?File $file = null;
 
-    #[Groups([self::ITEM, ])]
+    #[Groups([self::ITEM, self::READ, ])]
     public ?string $filePath = null;
 
-    #[Groups([self::ITEM, ])]
+    #[Groups([self::ITEM, self::READ, ])]
     public ?int $size = null;
 
-    #[Groups([self::ITEM, ])]
+    #[Groups([self::ITEM, self::READ, ])]
     public ?string $mimeType = null;
 
-    #[Groups([self::ITEM, ])]
+    #[Groups([self::ITEM, self::READ, ])]
     public ?string $originalName = null;
 
-    #[Groups([self::ITEM, ])]
+    #[Groups([self::ITEM, self::READ, ])]
     public ?array $dimensions = null;
 
-    #[Groups([self::ITEM, self::WRITE, self::PATCH, ])]
+    #[Groups([self::ITEM, self::WRITE, self::PATCH, self::READ, ])]
     public ?string $title = null;
 
-    #[Groups([self::ITEM, ])]
+    #[Groups([self::ITEM, self::READ, ])]
     public ?DateTimeImmutable $createdAt = null;
 
-    #[Groups([self::ITEM, ])]
+    #[Groups([self::ITEM, self::READ, ])]
     public ?DateTimeImmutable $updatedAt = null;
 
-    #[Groups([self::ITEM, ])]
+    #[Groups([self::ITEM, self::READ, ])]
     public ?bool $isImage = null;
 
-    #[Groups([self::ITEM, self::WRITE, self::PATCH, ])]
+    #[Groups([self::ITEM, self::WRITE, self::PATCH, self::READ, ])]
     public ?string $altText = null;
 }
