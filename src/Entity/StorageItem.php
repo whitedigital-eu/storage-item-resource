@@ -8,7 +8,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use WhiteDigital\EntityResourceMapper\Attribute\Mapping;
 use WhiteDigital\EntityResourceMapper\Entity\BaseEntity;
 use WhiteDigital\EntityResourceMapper\Entity\Traits\Id;
-use WhiteDigital\StorageItemResource\ApiResource\StorageItemResource;
+use WhiteDigital\StorageItemResource\Api\Resource\StorageItemResource;
 use WhiteDigital\StorageItemResource\StorageItemResourceBundle;
 
 #[ORM\Entity]

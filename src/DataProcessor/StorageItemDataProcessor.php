@@ -8,7 +8,7 @@ use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use WhiteDigital\EntityResourceMapper\DataProcessor\AbstractDataProcessor;
 use WhiteDigital\EntityResourceMapper\Entity\BaseEntity;
 use WhiteDigital\EntityResourceMapper\Resource\BaseResource;
-use WhiteDigital\StorageItemResource\ApiResource\StorageItemResource;
+use WhiteDigital\StorageItemResource\Api\Resource\StorageItemResource;
 use WhiteDigital\StorageItemResource\Entity\StorageItem;
 
 final class StorageItemDataProcessor extends AbstractDataProcessor
