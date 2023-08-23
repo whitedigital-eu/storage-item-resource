@@ -7,7 +7,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Vich\UploaderBundle\Storage\StorageInterface;
-use WhiteDigital\StorageItemResource\ApiResource\StorageItemResource;
+use WhiteDigital\StorageItemResource\Api\Resource\StorageItemResource;
 
 final class StorageNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {

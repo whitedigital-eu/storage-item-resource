@@ -16,7 +16,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Vich\UploaderBundle\Storage\StorageInterface;
 use WhiteDigital\EntityResourceMapper\Security\AuthorizationService;
 use WhiteDigital\EntityResourceMapper\Security\Enum\GrantType;
-use WhiteDigital\StorageItemResource\ApiResource\StorageItemResource;
+use WhiteDigital\StorageItemResource\Api\Resource\StorageItemResource;
 use WhiteDigital\StorageItemResource\Entity\StorageItem;
 
 use function array_key_exists;

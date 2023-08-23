@@ -28,9 +28,7 @@ class StorageItemResourceBundle extends AbstractBundle
         'mapping' => true,
     ];
 
-    private const PATHS = [
-        '%kernel.project_dir%/vendor/whitedigital-eu/storage-item-resource/src/ApiResource',
-    ];
+    private const API_RESOURCE_PATH = '%kernel.project_dir%/vendor/whitedigital-eu/storage-item-resource/src/Api/Resource';
 
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
@@ -46,31 +44,43 @@ class StorageItemResourceBundle extends AbstractBundle
                     ->scalarNode('entity_manager')->defaultValue('default')->end()
                     ->scalarNode('uri_prefix')->defaultValue('/storage')->end()
                     ->scalarNode('upload_destination')->defaultValue('%kernel.project_dir%/public/storage')->end()
+                    ->scalarNode('custom_api_resource_path')->defaultNull()->end()
                 ->end();
     }
 
     public function prependExtension(ContainerConfigurator $container, ContainerBuilder $builder): void
     {
-        $apiResource = array_merge_recursive(...$builder->getExtensionConfig('api_resource'));
-        $audit = array_merge_recursive(...$builder->getExtensionConfig('audit'));
+        $extensionConfig = array_merge_recursive(...$builder->getExtensionConfig('storage_item_resource'));
+        $apiResourceExtensionConfig = array_merge_recursive(...$builder->getExtensionConfig('api_resource'));
+        $auditExtensionConfig = array_merge_recursive(...$builder->getExtensionConfig('audit'));
 
-        $this->addDoctrineConfig($container, $apiResource['entity_manager'] ?? 'default', 'StorageItemResource', self::MAPPINGS);
-        $this->addApiPlatformPaths($container, self::PATHS);
+        $this->addDoctrineConfig($container, $apiResourceExtensionConfig['entity_manager'] ?? 'default', 'StorageItemResource', self::MAPPINGS);
 
-        if (null !== ($audit['audit_entity_manager'] ?? null)) {
-            $this->addDoctrineConfig($container, $audit['audit_entity_manager'], 'StorageItemResource', self::MAPPINGS);
+        if (null !== ($auditExtensionConfig['audit_entity_manager'] ?? null)) {
+            $this->addDoctrineConfig($container, $auditExtensionConfig['audit_entity_manager'], 'StorageItemResource', self::MAPPINGS);
         }
 
         $container->extension('vich_uploader', [
             'db_driver' => 'orm',
             'mappings' => [
                 self::VICH_MAPPING => [
-                    'uri_prefix' => $apiResource['uri_prefix'] ?? '/storage',
-                    'upload_destination' => $apiResource['upload_destination'] ?? '%kernel.project_dir%/public/storage',
+                    'uri_prefix' => $apiResourceExtensionConfig['uri_prefix'] ?? '/storage',
+                    'upload_destination' => $apiResourceExtensionConfig['upload_destination'] ?? '%kernel.project_dir%/public/storage',
                     'inject_on_load' => false,
                     'namer' => SmartUniqueNamer::class,
                 ],
             ],
         ]);
+
+        $this->configureApiPlatformExtension($container, $extensionConfig);
+    }
+
+    private function configureApiPlatformExtension(ContainerConfigurator $container, array $extensionConfig): void
+    {
+        if (!array_key_exists('custom_api_resource_path', $extensionConfig)) {
+            $this->addApiPlatformPaths($container, [self::API_RESOURCE_PATH]);
+        } elseif (!empty($extensionConfig['custom_api_resource_path'])) {
+            $this->addApiPlatformPaths($container, [$extensionConfig['custom_api_resource_path']]);
+        }
     }
 }

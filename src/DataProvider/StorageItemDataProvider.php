@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use WhiteDigital\EntityResourceMapper\DataProvider\AbstractDataProvider;
 use WhiteDigital\EntityResourceMapper\Entity\BaseEntity;
-use WhiteDigital\StorageItemResource\ApiResource\StorageItemResource;
+use WhiteDigital\StorageItemResource\Api\Resource\StorageItemResource;
 
 final class StorageItemDataProvider extends AbstractDataProvider
 {

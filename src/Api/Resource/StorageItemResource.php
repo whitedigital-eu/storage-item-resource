@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace WhiteDigital\StorageItemResource\ApiResource;
+namespace WhiteDigital\StorageItemResource\Api\Resource;
 
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
