@@ -49,8 +49,8 @@ class StorageItem extends BaseEntity
     #[ORM\Column(nullable: true)]
     private ?bool $isImage = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?string $altText = null;
+    #[ORM\Column(type: 'json', options: ['default' => '[]'])]
+    private array $data = [];
 
     public function getFilePath(): ?string
     {
@@ -148,14 +148,14 @@ class StorageItem extends BaseEntity
         return $this;
     }
 
-    public function getAltText(): ?string
+    public function getData(): ?array
     {
-        return $this->altText;
+        return $this->data;
     }
 
-    public function setAltText(?string $altText): self
+    public function setData(?array $data): self
     {
-        $this->altText = $altText;
+        $this->data = $data;
 
         return $this;
     }

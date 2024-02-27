@@ -33,7 +33,7 @@ class StorageItemFixture extends Fixture
 
             $fixture = (new StorageItem())->setFile($file);
             $fixture->setTitle(uniqid())
-                ->setAltText(uniqid());
+                ->setData([]);
 
             $manager->persist($fixture);
             $manager->flush();

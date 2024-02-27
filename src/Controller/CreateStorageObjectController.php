@@ -50,7 +50,10 @@ class CreateStorageObjectController extends AbstractController
             throw new BadRequestHttpException($this->translator->trans($uploadedFile->getErrorMessage()));
         }
 
-        $storage = (new StorageItem())->setFile($uploadedFile)->setTitle($request->request->get('title'));
+        $storage = (new StorageItem())
+            ->setFile($uploadedFile)
+            ->setTitle($request->request->get('title'))
+            ->setData($request->request->get('data') ?? []);
 
         $this->authorizationService->setAuthorizationOverride(fn () => $this->override(AuthorizationService::COL_POST, StorageItemResource::class));
         $this->authorizationService->authorizeSingleObject($storage, AuthorizationService::COL_POST);
@@ -63,15 +66,16 @@ class CreateStorageObjectController extends AbstractController
         $mediaObject = new StorageItemResource();
         $mediaObject->contentUrl = $this->vichStorage->resolveUri($storage, 'file');
         $mediaObject->createdAt = $storage->getCreatedAt();
+        $mediaObject->data = $storage->getData();
         $mediaObject->dimensions = $storage->getDimensions();
         $mediaObject->file = $storage->getFile();
         $mediaObject->filePath = $storage->getFilePath();
         $mediaObject->id = $storage->getId();
+        $mediaObject->isImage = $storage->getIsImage();
         $mediaObject->mimeType = $storage->getMimeType();
         $mediaObject->originalName = $storage->getOriginalName();
         $mediaObject->size = $storage->getSize();
         $mediaObject->title = $storage->getTitle();
-        $mediaObject->isImage = $storage->getIsImage();
 
         return $mediaObject;
     }
