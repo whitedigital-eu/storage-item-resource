@@ -127,5 +127,5 @@ class StorageItemResource extends BaseResource
     public ?bool $isImage = null;
 
     #[Groups([self::ITEM, self::WRITE, self::PATCH, self::READ, ])]
-    public ?string $altText = null;
+    public ?array $data = null;
 }
