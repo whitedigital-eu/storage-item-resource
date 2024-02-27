@@ -22,6 +22,7 @@ use WhiteDigital\StorageItemResource\Entity\StorageItem;
 use function array_key_exists;
 use function array_merge;
 use function exif_imagetype;
+use function json_decode;
 
 #[AsController]
 class CreateStorageObjectController extends AbstractController
@@ -50,10 +51,18 @@ class CreateStorageObjectController extends AbstractController
             throw new BadRequestHttpException($this->translator->trans($uploadedFile->getErrorMessage()));
         }
 
+        $data = [];
+        if ($request->request->get('data')) {
+            $decode = json_decode($request->request->get('data'), true);
+            if (JSON_ERROR_NONE === json_last_error()) {
+                $data = $decode;
+            }
+        }
+
         $storage = (new StorageItem())
             ->setFile($uploadedFile)
             ->setTitle($request->request->get('title'))
-            ->setData($request->request->get('data') ?? []);
+            ->setData($data);
 
         $this->authorizationService->setAuthorizationOverride(fn () => $this->override(AuthorizationService::COL_POST, StorageItemResource::class));
         $this->authorizationService->authorizeSingleObject($storage, AuthorizationService::COL_POST);
