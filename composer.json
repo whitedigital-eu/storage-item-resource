@@ -35,7 +35,7 @@
         "friendsofphp/php-cs-fixer": "*",
         "roave/security-advisories": "dev-latest",
         "symfony/dependency-injection": "*",
-        "symfony/http-client": "^6.2",
+        "symfony/http-client": "*",
         "whitedigital-eu/config-pack": "^2.1"
     },
     "conflict": {
