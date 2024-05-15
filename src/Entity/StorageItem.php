@@ -12,6 +12,7 @@ use WhiteDigital\StorageItemResource\Api\Resource\StorageItemResource;
 use WhiteDigital\StorageItemResource\StorageItemResourceBundle;
 
 #[ORM\Entity]
+#[ORM\Table(schema: 'whitedigital')]
 #[Vich\Uploadable]
 #[Mapping(StorageItemResource::class)]
 class StorageItem extends BaseEntity

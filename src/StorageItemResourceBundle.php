@@ -72,6 +72,14 @@ class StorageItemResourceBundle extends AbstractBundle
             ],
         ]);
 
+        if ($builder->hasExtension('doctrine_migrations')) {
+            $container->extension('doctrine_migrations', [
+                'migrations_paths' => [
+                    'WhiteDigital\StorageItemResource\Migrations' => '%kernel.project_dir%/vendor/whitedigital-eu/storage-item-resource/migrations',
+                ],
+            ]);
+        }
+
         $this->configureApiPlatformExtension($container, $extensionConfig);
     }
 
