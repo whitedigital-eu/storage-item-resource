@@ -87,7 +87,11 @@ class StorageItemResource extends BaseResource
     #[Groups([self::ITEM, self::READ, ])]
     public mixed $id = null;
 
-    #[ApiProperty(required: true, types: ['https://schema.org/contentUrl', ])]
+    #[ApiProperty(
+        required: true,
+        types: ['https://schema.org/contentUrl', ],
+        schema: ['type' => 'string'],
+    )]
     #[Groups([self::ITEM, self::READ, ])]
     public ?string $contentUrl = null;
 
@@ -123,12 +127,10 @@ class StorageItemResource extends BaseResource
     public ?string $title = null;
 
     #[Groups([self::ITEM, self::READ, ])]
-    #[Assert\NotBlank(groups: [self::READ, ])]
     #[ApiProperty(required: true, schema: ['type' => 'string'])]
     public ?DateTimeImmutable $createdAt = null;
 
     #[Groups([self::ITEM, self::READ, ])]
-    #[Assert\NotBlank(groups: [self::READ, ])]
     #[ApiProperty(required: true, schema: ['type' => 'string'])]
     public ?DateTimeImmutable $updatedAt = null;
 
