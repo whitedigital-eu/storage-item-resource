@@ -79,11 +79,19 @@ class StorageItemResource extends BaseResource
 
     public const PREFIX = 'storage_item:';
 
-    #[ApiProperty(identifier: true)]
+    #[ApiProperty(
+        required: true,
+        identifier: true,
+        openapiContext: ['type' => 'integer'],
+    )]
     #[Groups([self::ITEM, self::READ, ])]
     public mixed $id = null;
 
-    #[ApiProperty(types: ['https://schema.org/contentUrl', ])]
+    #[ApiProperty(
+        required: true,
+        types: ['https://schema.org/contentUrl', ],
+        schema: ['type' => 'string'],
+    )]
     #[Groups([self::ITEM, self::READ, ])]
     public ?string $contentUrl = null;
 
@@ -100,6 +108,7 @@ class StorageItemResource extends BaseResource
     public ?File $file = null;
 
     #[Groups([self::ITEM, self::READ, ])]
+    #[ApiProperty(required: true, schema: ['type' => 'string'])]
     public ?string $filePath = null;
 
     #[Groups([self::ITEM, self::READ, ])]
@@ -118,14 +127,17 @@ class StorageItemResource extends BaseResource
     public ?string $title = null;
 
     #[Groups([self::ITEM, self::READ, ])]
+    #[ApiProperty(required: true, schema: ['type' => 'string'])]
     public ?DateTimeImmutable $createdAt = null;
 
     #[Groups([self::ITEM, self::READ, ])]
+    #[ApiProperty(required: true, schema: ['type' => 'string'])]
     public ?DateTimeImmutable $updatedAt = null;
 
     #[Groups([self::ITEM, self::READ, ])]
     public ?bool $isImage = null;
 
     #[Groups([self::ITEM, self::WRITE, self::PATCH, self::READ, ])]
+    #[ApiProperty(openapiContext: ['type' => 'object', 'additionalProperties' => true])]
     public ?array $data = null;
 }
